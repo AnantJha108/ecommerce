@@ -1,0 +1,56 @@
+{% extends "store/layouts/main.html" %}
+
+{% block title %}
+Wishlist Page
+{% endblock title %}
+
+{% block content %}
+{% include "store/inc/navbar.html" %}
+<div class="bg-danger py-1">
+    <div class="container">
+        <div class="d-flex mt-2">
+            <h5><a href="{% url 'home'  %}" class="text-white">Home /</a></h5>
+            <h5 class="ms-1"><a href="{% url 'wishlist'  %}" class="text-white">Wishlist</a></h5>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow ">
+                <div class="card-body wishlistdata">
+                     {% if wishlist %}
+                         {% for item in wishlist %}
+                            <div class="card my-3">
+                                <div class="card-body">
+                                    <div class="row product_data">
+                                        <div class="col-md-2 my-auto">
+                                            <img src="{{item.product.product_image.url}}" height="70px" width="70px" alt="">
+                                        </div>
+                                        <div class="col-md-3 my-auto">
+                                            <h6>{{item.product.name}}</h6>
+                                        </div>
+                                        <div class="col-md-2 my-auto">
+                                            <h6>Rs {{item.product.selling_price | stringformat:'d'}}</h6>
+                                        </div>
+                                        <div class="col-md-3 my-auto">
+                                            <input type="hidden" class="prod_id" value="{{item.product_id}}">
+                                            {% csrf_token %}
+                                            <a href="{% url 'productview' item.product.category.slug item.product.slug %}" class="btn btn-primary btn-sm">View Product</a>
+                                        </div>
+                                        <div class="col-md-2 my-auto">
+                                            <button class="btn btn-danger delete-wishlist-item">Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         {% endfor %}
+                     {% else %}
+                         <h4>Your Wishlist is Empty </h4>
+                     {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

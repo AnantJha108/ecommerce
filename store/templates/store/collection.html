@@ -1,0 +1,39 @@
+{% extends "store/layouts/main.html" %}
+
+{% block title %}
+Collection Page
+{% endblock title %}
+
+{% block content %}
+{% include "store/inc/navbar.html" %}
+<div class="bg-danger py-1">
+    <div class="container">
+        <div class="d-flex mt-2">
+            <h5><a href="{% url 'home'  %}" class="text-white">Home /</a></h5>
+            <h5 class="ms-1"><a href="{% url 'collections'  %}" class="text-white">Collections</a></h5>
+        </div>
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="h4">Collections</h1>
+            <div class="row mt-4">
+                {% for item in category %}
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="{% url 'collectionsview' item.slug %}">
+                            <div class="card-body">
+                                <img src="{{ item.image.url }}" width="100%" height="200px" class="rounded-lg"
+                                    alt="">
+                                <h5 class="h6 p-1 mt-2">{{ item.name }}</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
