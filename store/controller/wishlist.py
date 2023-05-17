@@ -1,14 +1,19 @@
-from store.models import Product,Cart,Wishlist
+from store.models import Product,Wishlist
 from django.shortcuts import redirect,render
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse
+from django.contrib import messages
 
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def index(request):
-    wishlist = Wishlist.objects.filter(user=request.user)
-    context={'wishlist':wishlist}
-    return render(request,"store/wishlist.html",context)
+    if request.user.is_authenticated:
+        wishlist = Wishlist.objects.filter(user=request.user)
+        context={'wishlist':wishlist}
+        return render(request,"store/wishlist.html",context)
+    else:
+        messages.success(request,"Login Please")
+        return redirect('login')
 
 def addToWishlist(request):
     if request.method == 'POST':

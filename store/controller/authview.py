@@ -12,7 +12,7 @@ def register(request):
             messages.success(request,"Registered Successfully ! Login to Continue ")
             return redirect('/login')
     context = {'form':form}
-    return render(request,"store/auth/register.html",context)
+    return render(request,"store/account/signup.html",context)
 
 def loginPage(request):
     if request.user.is_authenticated:
@@ -32,7 +32,7 @@ def loginPage(request):
             else:
                 messages.error(request,"Invalid username and Password")
                 return redirect("login")
-        return render(request,"store/auth/login.html")
+        return render(request,"store/account/login.html")
 
 def logoutPage(request):
     if request.user.is_authenticated:

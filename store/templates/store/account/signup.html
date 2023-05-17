@@ -1,0 +1,44 @@
+{% extends "store/layouts/main.html" %}
+
+{% block title %}
+Register Page
+{% endblock title %}
+
+{% block content %}
+{% load static %}
+<div class="container-fluid" 
+    style="background-image: url('{% static 'images/b1.jpg'' %}');width:100%;height:100vh;background-size: fit; background-attachment: fixed;">
+    {% include "store/inc/nav.html" %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 my-auto">
+                <div class="card" style="border:none;">
+                    <form action="" class="box" method="POST">
+                        {% csrf_token %}
+                        <h1>Sign Up</h1>
+                        <p class="text-secondary"> Please enter your Details!</p>
+                        {{form.username}}
+                        {% if form.errors.username %}
+                            <label class="text-danger">{{form.errors.username}}</label>
+                        {% endif %} 
+                        {{ form.email }}
+                        {% if form.errors.email %}
+                        <label class="text-danger">{{form.errors.email}}</label>
+                        {% endif %}
+                        {{ form.password1 }}
+                        {% if form.errors.password1 %}
+                        <label class="text-danger">{{form.errors.password1}}</label>
+                        {% endif %}
+                        {{ form.password2 }}
+                        {% if form.errors.password2 %}
+                        <label class="text-danger">{{form.errors.password2}}</label>
+                        {% endif %}
+                          <input type="submit" value="Sign Up" >
+                          <a class="forgot text-secondary text-decoration-none" href="#">Login Here</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

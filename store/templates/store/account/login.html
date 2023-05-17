@@ -1,0 +1,40 @@
+{% extends "store/layouts/main.html" %}
+
+{% block title %}
+Login Page
+{% endblock title %}
+
+{% block content %}
+{% load static %}
+{% load socialaccount %}
+<div class="container-fluid" style="background-image: url('{% static 'images/b1.jpg'' %}');width:100%;height:100vh;background-size: fit; background-attachment: fixed;">
+    {% include "store/inc/nav.html" %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 my-auto">
+                <div class="card" style="border:none;">
+                    <form action="" class="box" method="POST">
+                        {% csrf_token %}
+                        <h1>Login</h1>
+                        <p class="text-secondary"> Please enter your login and password!</p>
+                         <input type="text" name="username" placeholder="Username"> 
+                         <input type="password" name="password"  placeholder="Password">
+                          <a class="forgot text-secondary" href="#">Forgot password?</a> 
+                          <input type="submit" value="Login" >
+                        <div class="col-md-12">
+                            <ul class="social-network social-circle">
+                                <li><a href="#" class="icoFacebook" title="Facebook"><i
+                                            class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#" class="icoTwitter" title="Twitter"><i
+                                            class="fab fa-twitter"></i></a></li>
+                                <li><a href="{% provider_login_url 'google'  %}" class="icoGoogle" title="Google +"><i
+                                            class="fab fa-google-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

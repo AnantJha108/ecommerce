@@ -4,7 +4,9 @@ from .models import Category,Product
 
 # Create your views here.
 def home(request):
-    return render(request,'store/index.html')
+    product = Product.objects.all()
+    context =  {'products' : product}
+    return render(request,'store/index.html',context)
 
 
 def collections(request):

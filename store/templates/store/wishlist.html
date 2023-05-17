@@ -46,7 +46,9 @@ Wishlist Page
                             </div>
                          {% endfor %}
                      {% else %}
-                         <h4>Your Wishlist is Empty </h4>
+                            <h4 class="p-3">Your Wishlist is Empty </h4>
+                            <a href="{% url 'collections' %}" class="btn btn-info btn-sm">Cotinue to Shopping</a>
+                                    
                      {% endif %}
                 </div>
             </div>
