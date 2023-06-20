@@ -15,7 +15,7 @@ def addToCart(request):
                     prod_qty = int(request.POST.get('product_qty'))
                     if product_check.quantity >= prod_qty:
                         Cart.objects.create(user = request.user,product_id=prod_id,product_qty = prod_qty)
-                        return JsonResponse({'status':'Product Added Successfully '})
+                        return JsonResponse({'status':'Product Added To Cart '})
                     else:
                         return JsonResponse({'status':"Only " + str(product_check.quantity) + " Quantity Available"})
             else:
@@ -27,7 +27,14 @@ def addToCart(request):
 def viewCart(request):
     if request.user.is_authenticated:
         cart = Cart.objects.filter(user=request.user)
-        context = {'cart':cart}
+        cartitems = Cart.objects.filter(user=request.user)
+        total_price = 0
+        total_shipping_price = 0
+        delivery_charge = 49
+        for item in cartitems:
+            total_price = total_price + item.product.selling_price * item.product_qty
+            total_shipping_price = total_price + delivery_charge
+        context = {'cart':cart,'cartitems':cartitems,'total_price':total_price,'total_shipping_price':total_shipping_price}
         return render(request,"store/cart.html",context)
     else:
         messages.success(request,"Login Please")

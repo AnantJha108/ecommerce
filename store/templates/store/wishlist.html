@@ -6,53 +6,64 @@ Wishlist Page
 
 {% block content %}
 {% include "store/inc/navbar.html" %}
-<div class="bg-danger py-1">
-    <div class="container">
-        <div class="d-flex mt-2">
-            <h5><a href="{% url 'home'  %}" class="text-white">Home /</a></h5>
-            <h5 class="ms-1"><a href="{% url 'wishlist'  %}" class="text-white">Wishlist</a></h5>
+<main id="main" class="main-site">
+    <div class="container mt-5 wishlistdata">
+        {% if wishlist %}
+        <div class="d-flex mb-3">
+            <h5><a href="{% url 'home'  %}" class="text-dark">Home /</a></h5>
+            <h5 class="ms-1"><a href="{% url 'wishlist'  %}" class="text-dark">Wishlist </a></h5>
         </div>
-    </div>
-</div>
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card shadow ">
-                <div class="card-body wishlistdata">
-                     {% if wishlist %}
-                         {% for item in wishlist %}
-                            <div class="card my-3">
-                                <div class="card-body">
-                                    <div class="row product_data">
-                                        <div class="col-md-2 my-auto">
-                                            <img src="{{item.product.product_image.url}}" height="70px" width="70px" alt="">
-                                        </div>
-                                        <div class="col-md-3 my-auto">
-                                            <h6>{{item.product.name}}</h6>
-                                        </div>
-                                        <div class="col-md-2 my-auto">
-                                            <h6>Rs {{item.product.selling_price | stringformat:'d'}}</h6>
-                                        </div>
-                                        <div class="col-md-3 my-auto">
-                                            <input type="hidden" class="prod_id" value="{{item.product_id}}">
-                                            {% csrf_token %}
-                                            <a href="{% url 'productview' item.product.category.slug item.product.slug %}" class="btn btn-primary btn-sm">View Product</a>
-                                        </div>
-                                        <div class="col-md-2 my-auto">
-                                            <button class="btn btn-danger delete-wishlist-item">Remove</button>
-                                        </div>
-                                    </div>
-                                </div>
+        <div class="main-content-area row">
+            <div class="wrap-iten-in-cart col">
+                <ul class="products-cart">
+                    {% for item in wishlist %}
+                    <li class="row product_data mt-4">
+                        <div class="col-4 mx-auto d-flex">
+                            <img src="{{item.product.product_image.url}}" width="50px" alt="">
+                            <a class="link-to-product ms-4" style="color: black" href="#">{{item.product.name}}</a>
+                        </div>
+                        <div class="col-3 mx-auto">
+                            <div class="d-flex">
+                                <del class="price text-danger">
+                                    <p class="text-danger me-3">₹ {{item.product.original_price | stringformat:'d'}}</p>
+                                </del>
+                                <p class="price">₹ {{item.product.selling_price | stringformat:'d'}}</p>
                             </div>
-                         {% endfor %}
-                     {% else %}
+                        </div>
+                        <div class="col-2 mx-auto">
+                            <input type="hidden" class="prod_id" value="{{item.product_id}}">
+                            {% csrf_token %}
+                            <a href="{% url 'productview' item.product.category.slug item.product.slug %}"
+                                style="color: rgb(167, 61, 79)"><i class="fas fa-solid fa-eye fs-5"></i></a>
+                        </div>
+                        <div class="delete col-3 mx-auto">
+                            <a href="#" class="btn btn-delete delete-wishlist-item" title="">
+                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </li>
+                    <hr>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!--end main content area-->
+        {% else %}
+        <div class="container">
+            <div class="row">
+                <div class="col-10 mx-auto">
+                    <div class="card">
+                        <div class="card-body text-center">
                             <h4 class="p-3">Your Wishlist is Empty </h4>
                             <a href="{% url 'collections' %}" class="btn btn-info btn-sm">Cotinue to Shopping</a>
-                                    
-                     {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        {% endif %}
     </div>
-</div>
+    <!--end container-->
+
+</main>
 {% endblock content %}

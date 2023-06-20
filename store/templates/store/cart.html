@@ -9,25 +9,22 @@
 <main id="main" class="main-site">
     <div class="container mt-5 cartdata">
         {% if cart %}
-        <div class="d-flex mt-2">
-            <h5><a href="{% url 'home'  %}" class="text-dark">Home /</a></h5>
-            <h5 class="ms-1"><a href="{% url 'cart'  %}" class="text-dark">Cart </a></h5>
-        </div>
         <div class=" main-content-area row">
-            <div class="wrap-iten-in-cart col-9">
+            <div class="wrap-iten-in-cart col-8">
+                <div class="d-flex">
+                    <h5><a href="{% url 'home'  %}" class="text-dark">Home /</a></h5>
+                    <h5 class="ms-1"><a href="{% url 'cart'  %}" class="text-dark">Cart </a></h5>
+                </div>
                 <ul class="products-cart">
                     {% for item in cart %}
-                    <li class="pr-cart-item product_data">
-                        <div class="product-image">
-                            <figure><img src="{{item.product.product_image.url}}" alt=""></figure>
+                    <li class="pr-cart-item row product_data">
+                        <div class="product-image mx-auto col-2">
+                            <img src="{{item.product.product_image.url}}" width="100%" height="auto" alt="">
                         </div>
-                        <div class="product-name">
+                        <div class="product-name mx-auto col-3">
                             <a class="link-to-product" href="#">{{item.product.name}}</a>
                         </div>
-                        <div class="price-field produtc-price">
-                            <p class="price">Rs {{item.product.selling_price | stringformat:'d'}}</p>
-                        </div>
-                        <div class="quantity">
+                        <div class="quantity mx-auto col-3">
                             <input type="hidden" class="prod_id" value="{{item.product_id}}">
                             {% csrf_token %}
                             {% if item.product.quantity >= item.product_qty%}
@@ -41,10 +38,13 @@
                             <h6>Out of Stock</h6>
                             {% endif %}
                         </div>
-                        <div class="price-field sub-total">
-                            <p class="price">Rs {{item.product.selling_price | stringformat:'d'}}</p>
+                        <div class="price-field col-3 mx-auto sub-total">
+                            <div class="d-flex">
+                            <del class="price text-danger"><p class="text-danger me-3">₹ {{item.product.original_price | stringformat:'d'}}</p></del>
+                            <p class="price">₹ {{item.product.selling_price | stringformat:'d'}}</p>
                         </div>
-                        <div class="delete">
+                        </div>
+                        <div class="delete mx-auto col-1">
                             <a href="#" class="btn btn-delete delete-cart-item" title="">
                                 <span>Delete from your cart</span>
                                 <i class="fa fa-times-circle" aria-hidden="true"></i>
@@ -54,18 +54,49 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div class="summary col-3">
+            <div class="summary col-4">
                 <div class="order-summary">
-                    <h4 class="title-box">Order Summary</h4>
-                    <p class="summary-info"><span class="title">Subtotal</span><b class="index">$512.00</b></p>
+                    {% if cartitems %}
+                    <h4 class="fs-5">Order Summary</h4>
+                    <hr class="m-0">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr style="font-size: 14px">
+                                <th>Product</th>
+                                <th>Item name</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cartitems %}
+                               <tr>
+                                    <td>
+                                        <img src="{{ item.product.product_image.url }}" width="40px" alt="">
+                                    </td>
+                                    <td>{{item.product.name}}</td>
+                                    <td>{{item.product_qty}}</td>
+                                    <td>{{item.product.selling_price | stringformat:'d'}}</td>
+                               </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <p class="summary-info"><span class="title">Subtotal</span><b class="index">₹ {{total_price | stringformat:'d'}}</b></p>
+                    {% if total_price >= 499 %}
                     <p class="summary-info"><span class="title">Shipping</span><b class="index">Free Shipping</b></p>
-                    <p class="summary-info total-info "><span class="title">Total</span><b class="index">$512.00</b>
+                    <p class="summary-info total-info "><span class="title">Total</span><b class="index">₹ {{total_price | stringformat:'d'}}</b>
                     </p>
-                </div>
-                <div class="checkout-info">
-                    <a class="btn btn-checkout" style="background-color: #ff0000" href="{% url 'checkout' %}">Check out</a>
-                    <a class="link-to-shop" href="{% url 'collections' %}">Continue Shopping<i class="fa fa-arrow-circle-right"
-                            aria-hidden="true"></i></a>
+                    {% else %}
+                    <p class="summary-info"><span class="title">Shipping  Charge</span><b class="index"> ₹ 49 </b></p>
+                    <p class="summary-info total-info "><span class="title">Total</span><b class="index">₹ {{total_shipping_price | stringformat:'d'}}</b>
+                    </p>
+                    {% endif %}
+                    <div class="checkout-info">
+                        <a class="btn btn-checkout" style="background-color: #ff0000" href="{% url 'checkout' %}">Check out</a>
+                        <a class="link-to-shop" href="{% url 'collections' %}">Continue Shopping<i class="fa fa-arrow-circle-right"
+                                aria-hidden="true"></i></a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

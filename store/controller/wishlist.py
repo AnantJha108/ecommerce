@@ -22,10 +22,10 @@ def addToWishlist(request):
             product_check = Product.objects.get(id=prod_id)
             if(product_check):
                 if(Wishlist.objects.filter(user=request.user,product_id=prod_id)):
-                    return JsonResponse({'status':"Product Already in Wishlist"})
+                    return JsonResponse({'status':"Product Already in your Wishlist"})
                 else:
                     Wishlist.objects.create(user=request.user,product_id=prod_id)
-                    return JsonResponse({'status':'Product added to wishlist'})
+                    return JsonResponse({'status':'Product added to your wishlist'})
             else:
                 return JsonResponse({'status':'No such Product Found'})
         else:

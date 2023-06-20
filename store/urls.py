@@ -9,9 +9,9 @@ urlpatterns = [
     path('collections', views.collections, name='collections'),
     path('collections/<str:slug>', views.collectionsview, name='collectionsview'),
     path('collections/<str:cate_slug>/<str:prod_slug>', views.productview, name='productview'),
-    path('register', authview.register,name='register'),
-    path('login/', authview.loginPage ,name='login'),
-    path('logout/', authview.logoutPage ,name='logout'),
+    path('accounts/signup/', authview.register,name='register'),
+    path('accounts/login/', authview.loginPage ,name='login'),
+    path('accounts/logout/', authview.logoutPage ,name='logout'),
     
     path('add-to-cart',cart.addToCart,name='addToCart'),
     path('update-cart',cart.updateCart,name='updateCart'),
@@ -23,6 +23,7 @@ urlpatterns = [
     path('delete-wishlist-item',wishlist.deleteWishlistItem,name='deletewishlistitem'),
 
     path('checkout',checkout.index,name='checkout'),
+    path('place-order',checkout.placeorder,name='placeorder'),
 ]
 
 

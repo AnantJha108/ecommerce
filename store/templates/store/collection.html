@@ -6,36 +6,40 @@ Collection Page
 
 {% block content %}
 {% include "store/inc/navbar.html" %}
-<div class="bg-danger py-1">
-    <div class="container">
-        <div class="d-flex mt-2">
-            <h5><a href="{% url 'home'  %}" class="text-white">Home /</a></h5>
-            <h5 class="ms-1"><a href="{% url 'collections'  %}" class="text-white">Collections</a></h5>
-        </div>
-    </div>
-</div>
 <div class="container mt-3">
-    <div class="row row-cols-5">
+    <div class="row">
         {% for item in category %}
-            <div class="col mb-3">
-                <div class="product product-style-2 equal-elem ">
-                    <div class="product-thumnail">
-                        <a href="{% url 'collectionsview' item.slug %}"" title="{{item.name}}">
-                            <figure><img src="{{item.image.url}}" style="width:300px;height:200px"
-                                    alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
-                        </a>
-                        <div class="group-flash">
-                            <span class="flash-item sale-label">sale</span>
+        <div class="col text-center">
+            <a href="{% url 'collectionsview' item.slug %}" title=" {{item.name}}">
+                <img src="{{item.image.url}}" class="ms-1"
+                        style="width:100px;height:100px;border-radius:50%;border:1px solid rgb(237, 52, 52);"
+                        alt="T-Shirt Raw Hem Organic Boro Constrast Denim">
+                <p class="mt-1 text-dark"><span>{{item.name}}</span></p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <h3 class="h5 mb-3">Top Products</h3>
+    <div class="row row-cols-5">
+        {% for item in products %}
+        <div class="px-3 mb-5">
+            <div class="card shadow" style="border: 1px solid rgba(253, 124, 11, 0.314);">
+                <div class="card-body product_data">
+                    <a href="{% url 'productview' item.category.slug item.slug %}" title="{{item.name}}">
+                        <img src="{{item.product_image.url}}" style="width:100%;height:270px;object-fit:fit;" alt="T-Shirt Raw Hem Organic Boro Constrast Denim">
+                        <div>
+                            <i class="fa fa-star" aria-hidden="true" style="color:#fecd09"></i>
+                            <i class="fa fa-star" aria-hidden="true" style="color:#fecd09"></i>
+                            <i class="fa fa-star" aria-hidden="true" style="color:#fecd09"></i>
+                            <i class="fa fa-star" aria-hidden="true" style="color:#fecd09"></i>
+                            <i class="fa fa-star" aria-hidden="true" style="color:#fecd09"></i>
                         </div>
-                        <div class="wrap-btn">
-                            <a href="" class="function-link">Quick view</a>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <a href="#" class="product-name"><span>{{item.name}}</span></a>
-                    </div>
+                        <div class="text-dark text-truncate"> {{item.name}}</div>
+                        <div class="wrap-price text-dark"><del class="text-danger">₹ {{item.original_price}}</del><span class="product-price ms-2">₹ {{item.selling_price}}</span></div>
+                    </a>
                 </div>
             </div>
+        </div>
         {% endfor %}
     </div>
 </div>

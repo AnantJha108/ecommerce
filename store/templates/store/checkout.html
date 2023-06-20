@@ -7,88 +7,100 @@
 {% block content %}
 {% include "store/inc/navbar.html" %}
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-7">
-            <div class=" main-content-area">
-                <div class="wrap-address-billing">
-                    <h3 class="box-title">Billing Address</h3>
-                    <form action="#" method="get" name="frm-billing">
-                        <p class="row-in-form">
-                            <label for="fname">first name<span>*</span></label>
-                            <input id="fname" type="text" name="fname" value="" placeholder="Your name">
-                        </p>
-                        <p class="row-in-form">
-                            <label for="lname">last name<span>*</span></label>
-                            <input id="lname" type="text" name="lname" value="" placeholder="Your last name">
-                        </p>
-                        <p class="row-in-form">
-                            <label for="email">Email Addreess:</label>
-                            <input id="email" type="email" name="email" value="" placeholder="Type your email">
-                        </p>
-                        <p class="row-in-form">
-                            <label for="phone">Phone number<span>*</span></label>
-                            <input id="phone" type="number" name="phone" value="" placeholder="10 digits format">
-                        </p>
-                        <p class="row-in-form">
-                            <label for="add">Address:</label>
-                            <input id="add" type="text" name="add" value="" placeholder="Street at apartment number">
-                        </p>
-                        <p class="row-in-form">
-                            <label for="country">Country<span>*</span></label>
-                            <input id="country" type="text" name="country" value="" placeholder="United States">
-                        </p>
-                        <p class="row-in-form">
-                            <label for="zip-code">Pincode:</label>
-                            <input id="zip-code" type="number" name="zip-code" value="" placeholder="Your postal code">
-                        </p>
-                        <p class="row-in-form">
-                            <label for="city">Town / City<span>*</span></label>
-                            <input id="city" type="text" name="city" value="" placeholder="City name">
-                        </p>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-5">
-            <div class="summary summary-checkout">
-                <div class="summary-item payment-method">
-                    <h4 class="title-box">Payment Method</h4>
-                    <p class="summary-info"><span class="title">Check / Money order</span></p>
-                    <p class="summary-info"><span class="title">Credit Cart (saved)</span></p>
-                    <div class="choose-payment-methods">
-                        <label class="payment-method">
-                            <input name="payment-method" id="payment-method-bank" value="bank" type="radio">
-                            <span>Direct Bank Transder</span>
-                            <span class="payment-desc">But the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</span>
-                        </label>
-                        <label class="payment-method">
-                            <input name="payment-method" id="payment-method-visa" value="visa" type="radio">
-                            <span>visa</span>
-                            <span class="payment-desc">There are many variations of passages of Lorem Ipsum available</span>
-                        </label>
-                        <label class="payment-method">
-                            <input name="payment-method" id="payment-method-paypal" value="paypal" type="radio">
-                            <span>Paypal</span>
-                            <span class="payment-desc">You can pay with your credit</span>
-                            <span class="payment-desc">card if you don't have a paypal account</span>
-                        </label>
+    <form action="{% url 'placeorder' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            {% if cart %}
+            <div class="col-7">
+                <div class=" main-content-area">
+                    <div class="wrap-address-billing">
+                        <h3 class="box-title">Billing Address</h3>
+                            <p class="row-in-form mx-1">
+                                <label for="fname">first name<span>*</span></label>
+                                <input id="fname" type="text" required name="fname"  placeholder="Your name">
+                            </p>
+                            <p class="row-in-form mx-1">
+                                <label for="lname">last name<span>*</span></label>
+                                <input id="lname" type="text" required name="lname"  placeholder="Your last name">
+                            </p>
+                            <p class="row-in-form mx-1">
+                                <label for="email">Email Addreess:</label>
+                                <input id="email" type="email" required name="email"  placeholder="Type your email">
+                            </p>
+                            <p class="row-in-form mx-1">
+                                <label for="phone">Phone number<span>*</span></label>
+                                <input id="phone" type="text" required name="phone_no"  placeholder="10 digits format">
+                            </p>
+                            <p class="row-in-form mx-1">
+                                <label for="add">Address:</label>
+                                <input id="add" type="text" required name="address"  placeholder="Street at apartment number">
+                            </p>
+                            <p class="row-in-form mx-1">
+                                <label for="country">Country<span>*</span></label>
+                                <input id="country" type="text" required name="country"  placeholder="India">
+                            </p>
+                            <p class="row-in-form mx-1">
+                                <label for="zip-code">Pincode:</label>
+                                <input id="zip-code" type="number" required name="pincode"  placeholder="Your pin code">
+                            </p>
+                            <p class="row-in-form mx-1">
+                                <label for="city">Town / City<span>*</span></label>
+                                <input id="city" type="text" required name="city"  placeholder="City name">
+                                <input type="hidden" required name="payment_mode" value="1"  placeholder="payment_mode">
+                            </p>
                     </div>
-                    <p class="summary-info grand-total"><span>Grand Total</span> <span class="grand-total-price">$100.00</span></p>
-                    <a href="thankyou.html" class="btn btn-medium" style="background-color: #ff0000"    >Place order now</a>
                 </div>
-                <div class="summary-item shipping-method">
-                    <h4 class="title-box f-title">Shipping method</h4>
-                    <p class="summary-info"><span class="title">Flat Rate</span></p>
-                    <p class="summary-info"><span class="title">Fixed $50.00</span></p>
-                    <h4 class="title-box">Discount Codes</h4>
-                    <p class="row-in-form">
-                        <label for="coupon-code">Enter Your Coupon code:</label>
-                        <input id="coupon-code" type="text" name="coupon-code" value="" placeholder="">	
-                    </p>
-                    <a href="#" class="btn btn-small" style="background-color: #ff0000">Apply</a>
+    
+            </div>
+            <div class="col-5">
+                <div class="summary px-4">
+                    <div class="order-summary">
+                        {% if cartitems %}
+                        <h4 class="fs-5">Order Summary</h4>
+                        <hr class="m-0">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr style="font-size: 14px">
+                                    <th>Product</th>
+                                    <th>Item Name</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cartitems %}
+                                   <tr>
+                                        <td>
+                                            <img src="{{ item.product.product_image.url }}" width="40px" alt="">
+                                        </td>
+                                        <td style="font-size: 14px">{{item.product.name}}</td>
+                                        <td>{{item.product_qty}}</td>
+                                        <td>{{item.product.selling_price | stringformat:'d'}}</td>
+                                   </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <p class="summary-info"><span class="title">Subtotal</span><b class="index">₹ {{total_price | stringformat:'d'}}</b></p>
+                        {% if total_price >= 499 %}
+                        <p class="summary-info"><span class="title">Shipping</span><b class="index">Free Shipping</b></p>
+                        <p class="summary-info total-info "><span class="title">Total</span><b class="index">₹ {{total_price | stringformat:'d'}}</b>
+                        </p>
+                        {% else %}
+                        <p class="summary-info"><span class="title">Shipping  Charge</span><b class="index"> ₹ 49 </b></p>
+                        <p class="summary-info total-info "><span class="title">Total</span><b class="index">₹ {{total_shipping_price | stringformat:'d'}}</b>
+                        </p>
+                        {% endif %}
+                        <div class="checkout-info">
+                            <button class="btn btn-checkout" style="background-color: #ff0000" href="{% url 'checkout' %}">Place Order</button>
+                            <a class="link-to-shop" href="{% url 'collections' %}">Continue Shopping<i class="fa fa-arrow-circle-right"
+                                    aria-hidden="true"></i></a>
+                        </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
+            {% endif %}
         </div>
-    </div>
+    </form>
 </div>
 {% endblock content %}

@@ -1,17 +1,20 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from .models import Category,Product
+from .models import Category,Product,Wishlist
+from django.http.response import JsonResponse
 
 # Create your views here.
 def home(request):
-    product = Product.objects.all()
-    context =  {'products' : product}
+    category = Category.objects.all()
+    products = Product.objects.all()
+    context =  {'category':category,'products' : products}
     return render(request,'store/index.html',context)
 
 
 def collections(request):
-    category = Category.objects.filter(status=0)
-    context = {'category':category}
+    category = Category.objects.all()
+    product = Product.objects.all()
+    context = {'category':category,'products' : product}
     return render(request,"store/collection.html",context)
 
 def collectionsview(request,slug):

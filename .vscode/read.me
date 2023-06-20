@@ -1,0 +1,46 @@
+collection
+
+{% for item in products %}
+        <div class="col mb-3">
+            <div class="product product-style-2 equal-elem ">
+                <div class="product-thumnail">
+                    <a href="{% url 'productview' item.category.slug item.slug %}" title="{{item.name}}">
+                        <img src="{{item.product_image.url}}" style="width:210px;height:300px"
+                                alt="T-Shirt Raw Hem Organic Boro Constrast Denim">
+                    </a>
+                    <div class="wrap-btn">
+                        <a href="" class="function-link">Quick view</a>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <a href="{% url 'productview' item.category.slug item.slug %}" class="product-name text-truncate"><span>{{item.name}}</span></a>
+                    <div class="wrap-price"><span class="product-price">Rs {{item.selling_price}}</span></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('collections', views.collections, name='collections'),
+    path('collections/<str:slug>', views.collectionsview, name='collectionsview'),
+    path('collections/<str:cate_slug>/<str:prod_slug>', views.productview, name='productview'),
+    path('/accounts/register/', authview.register,name='account_signup'),
+    path('/accounts/login/', authview.loginPage ,name='account_login'),
+    path('/accounts/logout/', authview.logoutPage ,name='account_logout'),
+    
+    path('add-to-cart',cart.addToCart,name='addToCart'),
+    path('update-cart',cart.updateCart,name='updateCart'),
+    path('delete-cart-item',cart.deleteCartItem,name='deleteCartitem'),
+    path('cart',cart.viewCart,name='cart'),
+
+    path('wishlist',wishlist.index,name='wishlist'),
+    path('add-to-wishlist',wishlist.addToWishlist,name='addtowishlist'),
+    path('delete-wishlist-item',wishlist.deleteWishlistItem,name='deletewishlistitem'),
+
+    path('checkout',checkout.index,name='checkout'),
+    path('place-order',checkout.placeorder,name='placeorder'),
+]
+
+

@@ -8,73 +8,26 @@ Homepage
 {% load static %}
 {% include "store/inc/navbar.html" %}
 <div class="container mt-3">
+    <div class="row">
+        {% for item in category %}
+        <div class="col text-center">
+            <a href="{% url 'collectionsview' item.slug %}" title=" {{item.name}}">
+                <img src="{{item.image.url}}" class="ms-1"
+                    style="width:100px;height:100px;border-radius:50%;border:1px solid rgb(237, 52, 52);"
+                    alt="T-Shirt Raw Hem Organic Boro Constrast Denim">
+                <p class="mt-1 text-dark"><span>{{item.name}}</span></p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
     <div class="row row-cols-5">
         {% for item in products %}
-        <div class="col mb-3">
-            <div class="product product-style-2 equal-elem ">
-                <div class="product-thumnail">
-                    <a href="detail.html" title="{{item.name}}">
-                        <figure><img src="{{item.product_image.url}}" style="width:300px;height:200px"
-                                alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
-                    </a>
-                    <div class="group-flash">
-                        <span class="flash-item sale-label">sale</span>
-                    </div>
-                    <div class="wrap-btn">
-                        <a href="" class="function-link">Quick view</a>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <a href="#" class="product-name"><span>{{item.name}}</span></a>
-                    <div class="wrap-price"><span class="product-price">Rs {{item.selling_price}}</span></div>
-                </div>
+         <div class="card">
+            <div class="card-body">
+                <img src="{{item.product_image.url}}" style="width:100%;height:270px;object-fit:fit;" alt="T-Shirt Raw Hem Organic Boro Constrast Denim">
             </div>
-        </div>
-        {% endfor %}
-        {% for item in products %}
-        <div class="col">
-            <div class="product product-style-2 equal-elem ">
-                <div class="product-thumnail">
-                    <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                        <figure><img src="{{item.product_image.url}}" style="width:300px;height:200px"
-                                alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
-                    </a>
-                    <div class="group-flash">
-                        <span class="flash-item sale-label">sale</span>
-                    </div>
-                    <div class="wrap-btn">
-                        <a href="" class="function-link">Quick view</a>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <a href="#" class="product-name"><span>{{item.name}}</span></a>
-                    <div class="wrap-price"><span class="product-price">Rs {{item.selling_price}}</span></div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-        {% for item in products %}
-        <div class="col">
-            <div class="product product-style-2 equal-elem ">
-                <div class="product-thumnail">
-                    <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                        <figure><img src="{{item.product_image.url}}" style="width:300px;height:200px"
-                                alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
-                    </a>
-                    <div class="group-flash">
-                        <span class="flash-item sale-label">sale</span>
-                    </div>
-                    <div class="wrap-btn">
-                        <a href="" class="function-link">Quick view</a>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <a href="#" class="product-name"><span>{{item.name}}</span></a>
-                    <div class="wrap-price"><span class="product-price">Rs {{item.selling_price}}</span></div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
+         </div>
+         {% endfor %}
     </div>
 </div>
 {% endblock content %}

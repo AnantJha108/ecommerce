@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-zf!d)hme$mgwb3ojymczkq$=%@bl*0+4%70miji67cr8ab1to+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    # 'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.github',
     # 'allauth.socialaccount.providers.twitter',
 ]
 
@@ -152,18 +152,23 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-SITE_ID = 2
+SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
+        'APP': {
+            'client_id': '872244219685-dih0gvf5jdfh7kpn2dur0q8nmmj4u81a.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    },
+    'github': {
+        'APP': {
+            'client_id': '90954b786409c6cb3daf',
+            'secret': 'dd1c2fc980a6c73ef6ef50478ec9e19595a454b6',
+            'key': ''
         }
     }
 }

@@ -6,41 +6,48 @@
 
 {% block content %}
 {% include "store/inc/navbar.html" %}
-<div class="bg-danger py-1">
+<main id="main" class="main-site left-sidebar">
     <div class="container">
-        <div class="d-flex mt-2">
-            <h5><a href="{% url 'home'  %}" class="text-white">Home /</a></h5>
-            <h5 class="ms-1"><a href="{% url 'collections'  %}" class="text-white">Collections /</a></h5>
-            <h5 class="ms-1"><a href="{% url 'collectionsview' category_name.slug %}" class="text-white">{{ category_name.name }}</a></h5>
+        <div class="wrap-breadcrumb">
+            <ul>
+                <li class="item-link"><a href="{% url 'home'  %}" class="link">home</a></li>
+                <li class="item-link"><a href="{% url 'collections'  %}" class="link">Collections</a></li>
+                <li class="item-link"><a href="{% url 'collectionsview' category_name.slug %}"
+                        class="link">{{category_name.name}}</a></li>
+            </ul>
         </div>
-    </div>
-</div>
-<div class="container mt-3">
-    <div class="row row-cols-5">
-        {% for item in products %}
-            <div class="col mb-3">
-                <div class="product product-style-2 equal-elem ">
-                    <div class="product-thumnail">
-                        <a href="{% url 'collectionsview' item.slug %}" title="{{item.name}}">
-                            <figure><img src="{{ item.product_image.url }}" style="width:300px;height:200px"
-                                    alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
-                        </a>
-                        <div class="group-flash">
-                            <span class="flash-item sale-label">sale</span>
-                        </div>
-                        <div class="wrap-btn">
-                            <a href="" class="function-link">Quick view</a>
+        <div class="row">
+            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
+                <div class="row  row-cols-4">
+                    {% for item in products %}
+                    <div class="col mb-3 ">
+                        <div class="product product-style-2 equal-elem product_data">
+                            <div class="product-thumnail">
+                                <a href="{% url 'productview' item.category.slug item.slug %}" title="{{item.name}}">
+                                    <img src="{{ item.product_image.url }}" style="width:270px;height:180px"
+                                            alt="T-Shirt Raw Hem Organic Boro Constrast Denim">
+                                </a>
+                                <div class="wrap-btn">
+                                    <a href="" class="function-link">Quick view</a>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{item.id}}" class="prod_id">
+                                <input type="hidden" name="quantity" class="form-control qty-input text-center" value="1">
+                                <a href="{% url 'productview' item.category.slug item.slug %}" style="font-size:16px;color:black"><span>{{item.name}}</span></a>
+                                <div class="wrap-price">
+                                    <del class="text-danger me-3"><small>₹ {{ item.original_price | stringformat:'d' }}</small></del>
+                                    <span class="product-price">₹ {{item.selling_price | stringformat:'d'}}</span>
+                                </div>
+                                <button style="background-color: #ff0000;width:100%;" class="text-white border-0 py-1 cartbtn px-3">Add To Cart</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="product-info">
-                        <a href="#" class="product-name"><span>{{item.name}}</span></a>
-                        <div class="wrap-price">
-                            <del class="text-danger me-3">₹ {{ item.original_price | stringformat:'d' }}</del>
-                            <span class="product-price">Rs {{item.selling_price | stringformat:'d'}}</span></div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
-        {% endfor %}
-    </div>
-</div>
+        </div>
+
+</main>
 {% endblock content %}
