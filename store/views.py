@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
 from .models import Category,Product,Wishlist
 from django.http.response import JsonResponse
@@ -27,11 +27,12 @@ def collectionsview(request,slug):
         messages.warning(request,"No such category Found")
         return redirect('collections')
     
-def productview(request,cate_slug,prod_slug):
+def productview(request,cate_slug,prod_slug,prod_id):
     if(Category.objects.filter(slug=cate_slug,status=0)):
         if(Product.objects.filter(slug=prod_slug,status=0)):
             products=Product.objects.filter(slug=prod_slug,status=0).first
-            context={'products':products}
+            wishlist = Wishlist.objects.filter(user=request.user, product_id=prod_id).exists()
+            context={'products':products,'wishlist':wishlist}
         else:
             messages.error(request,"No such product is found")
             return redirect('collections')

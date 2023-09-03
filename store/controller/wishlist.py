@@ -30,7 +30,7 @@ def addToWishlist(request):
                 return JsonResponse({'status':'No such Product Found'})
         else:
             return JsonResponse({'status':'Login To Continue'})
-    return redirect('/')       
+    return redirect('/')      
 
 def deleteWishlistItem(request):
     if request.method == "POST":

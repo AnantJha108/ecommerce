@@ -33,7 +33,7 @@ Wishlist Page
                         <div class="col-2 mx-auto">
                             <input type="hidden" class="prod_id" value="{{item.product_id}}">
                             {% csrf_token %}
-                            <a href="{% url 'productview' item.product.category.slug item.product.slug %}"
+                            <a href="{% url 'productview' item.product.category.slug item.product.slug item.product_id %}"
                                 style="color: rgb(167, 61, 79)"><i class="fas fa-solid fa-eye fs-5"></i></a>
                         </div>
                         <div class="delete col-3 mx-auto">

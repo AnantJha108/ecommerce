@@ -10,9 +10,9 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request,"Registered Successfully ! Login to Continue ")
-            return redirect('/login')
+            return redirect('login')
     context = {'form':form}
-    return render(request,"store/account/signup.html",context)
+    return render(request,"store/accounts/signup.html",context)
 
 def loginPage(request):
     if request.user.is_authenticated:
@@ -24,7 +24,6 @@ def loginPage(request):
             passwd= request.POST.get('password')
 
             user = authenticate(request,username=name,password=passwd)
-
             if user is not None:
                 login(request,user)
                 messages.success(request,"Log in successfull !")
@@ -32,7 +31,7 @@ def loginPage(request):
             else:
                 messages.error(request,"Invalid username and Password")
                 return redirect("login")
-        return render(request,"store/account/login.html")
+        return render(request,"store/accounts/login.html")
 
 def logoutPage(request):
     if request.user.is_authenticated:

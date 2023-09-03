@@ -64,7 +64,7 @@ class Order(models.Model):
     pincode = models.CharField(max_length=150,null=False)
     city = models.CharField(max_length=150,null=False)
     total_price = models.FloatField(null=False)
-    payment_mode = models.FloatField(max_length=150,null=False)
+    payment_mode = models.CharField(max_length=150,null=False)
     payment_id = models.CharField(max_length=250,null=True)
     orderStatus = (
         ('Pending','Pending'),
@@ -88,3 +88,16 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.order.id, self.order.tracking_no)
+    
+class Profile(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    phone_no = models.CharField(max_length=150,null=False)
+    address = models.TextField(null=False)
+    country = models.CharField(max_length=150,null=False)
+    pincode = models.CharField(max_length=150,null=False)
+    city = models.CharField(max_length=150,null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.username
+    

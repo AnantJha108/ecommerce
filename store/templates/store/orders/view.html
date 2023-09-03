@@ -1,0 +1,102 @@
+{% extends "store/layouts/main.html" %}
+
+{% block title %}
+Order Page
+{% endblock title %}
+
+{% block content %}
+{% include "store/inc/navbar.html" %}
+<main id="main" class="main-site">
+    <div class="container mt-5">
+        <div class="d-flex">
+            <div class="d-flex mb-3 col-11">
+                <h5 class="ms-1"><a href="{% url 'myorders'  %}" class="text-dark">My Orders </a></h5>
+            </div>
+            <div class="col-1">
+                <a href="{% url 'myorders'  %}" class="btn btn-sm btn-warning float-end"><i class="bi bi-caret-left-fill"></i> Back</a>
+            </div>
+        </div>
+        <div class="main-content-area row">
+            <div class="wrap-iten-in-cart col">
+                <div class="products-cart">
+                    <div class="row">
+                        <hr>
+                        <div class="col-5">
+                            <div class="summary px-4">
+                                <div class="order-summary">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr style="font-size: 14px">
+                                                <th>Product</th>
+                                                <th>Item Name</th>
+                                                <th>Qty</th>
+                                                <th>Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in orders %}
+                                            <tr>
+                                                <td>
+                                                    <img src="{{ item.product.product_image.url }}" width="40px" alt="">
+                                                </td>
+                                                <td style="font-size: 14px">{{item.product.name}}</td>
+                                                <td>{{item.quantity}}</td>
+                                                <td>{{item.price | stringformat:'d'}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <h4 class="h6">Order Status : <span class="float-end">{{order.status}}</span></h4>
+                                    <h4 class="h6">Tracking no : <span class="float-end">{{order.tracking_no}}</span></h4>
+                                    <h4 class="h6">Payment Mode : <span class="float-end">{{order.payment_mode}}</span></h4>
+                                    <h4 class="h5">Grand Total : <span class="float-end">₹ {{order.total_price | stringformat:'d'}}</span></h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class=" main-content-area">
+                                <div class="wrap-address-billing">
+                                    <h3 class="box-title">Shipping Address</h3>
+                                    <p class="row-in-form mx-1">
+                                        <label for="fname">first name<span>*</span></label>
+                                        <input id="fname" disabled type="text" value="{{ order.fname }}">
+                                    </p>
+                                    <p class="row-in-form mx-1">
+                                        <label for="lname">last name<span>*</span></label>
+                                        <input id="lname" disabled type="text" value="{{ order.lname }}">
+                                    </p>
+                                    <p class="row-in-form mx-1">
+                                        <label for="email">Email :</label>
+                                        <input id="email" disabled type="email" value="{{ order.email }}">
+                                    </p>
+                                    <p class="row-in-form mx-1">
+                                        <label for="phone">Phone number<span>*</span></label>
+                                        <input id="phone" disabled type="text" value="{{ order.phone_no }}">
+                                    </p>
+                                    <p class="row-in-form mx-1">
+                                        <label for="add">Address :</label>
+                                        <input id="add" disabled type="text" value="{{ order.address }}">
+                                    </p>
+                                    <p class="row-in-form mx-1">
+                                        <label for="city">Town / City<span>*</span></label>
+                                        <input id="city" disabled type="text" value="{{ order.city }}">
+                                    </p>
+                                    <p class="row-in-form mx-1">
+                                        <label for="zip-code">Pincode :</label>
+                                        <input id="zip-code" disabled type="number" value="{{ order.pincode }}">
+                                    </p>
+                                    <p class="row-in-form mx-1">
+                                        <label for="country">Country<span>*</span></label>
+                                        <input id="country" disabled type="text" value="{{ order.country }}">
+                                    </p>
+                                </div>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

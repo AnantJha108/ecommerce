@@ -15,7 +15,7 @@
                 <li class="item-link"><a
                         href="{% url 'collectionsview' products.category.slug %}">{{products.category.name }}</a></li>
                 <li class="item-link"><a
-                        href="{% url 'productview' products.category.slug products.slug %}">{{products.name }}</a></li>
+                        href="{% url 'productview' products.category.slug products.slug products.id %}">{{products.name }}</a></li>
             </ul>
         </div>
         <div class="row ">
@@ -63,10 +63,19 @@
                         <button type="button" class="border border-none text-white py-1 px-4 me-2 float-start cartbtn"
                             style="background-color:#ff0000;"><i class="fas fa-sharp fa-solid fa-cart-plus"></i> Add to cart</button>
                         {% endif %}
-                        <button type="button"
+
+                        {% if wishlist %}
+                            <button type="button"
+                            class="border border-none text-white py-1 px-3 me-2 float-start addToWishlist"
+                            style="background-color:#036f22cf;"><i class="fas fa-solid fa-heart me-1"></i>Alredy in
+                            wishlist</button>
+                        {% else %}
+                            <button type="button"
                             class="border border-none text-white py-1 px-3 me-2 float-start addToWishlist"
                             style="background-color:#2fff00cf;"><i class="fas fa-solid fa-heart me-1"></i>Add to
                             wishlist</button>
+                        {% endif %}
+                        
                     </div>
                 </div>
             </div>

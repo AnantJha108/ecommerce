@@ -25,17 +25,14 @@ Collection Page
         <div class="px-3 mb-5">
             <div class="card shadow" style="border: 1px solid rgba(253, 124, 11, 0.314);">
                 <div class="card-body product_data">
-                    <a href="{% url 'productview' item.category.slug item.slug %}" title="{{item.name}}">
-                        <img src="{{item.product_image.url}}" style="width:100%;height:270px;object-fit:fit;" alt="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                        <div>
-                            <i class="fa fa-star" aria-hidden="true" style="color:#fecd09"></i>
-                            <i class="fa fa-star" aria-hidden="true" style="color:#fecd09"></i>
-                            <i class="fa fa-star" aria-hidden="true" style="color:#fecd09"></i>
-                            <i class="fa fa-star" aria-hidden="true" style="color:#fecd09"></i>
-                            <i class="fa fa-star" aria-hidden="true" style="color:#fecd09"></i>
-                        </div>
+                    <a href="{% url 'productview' item.category.slug item.slug item.id  %}" title="{{item.name}}">
+                        <img src="{{item.product_image.url}}" style="width:100%;height:250px;object-fit:fit;" alt="T-Shirt Raw Hem Organic Boro Constrast Denim">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{item.id}}" class="prod_id">
+                        <input type="hidden" name="quantity" class="form-control qty-input text-center" value="1">
                         <div class="text-dark text-truncate"> {{item.name}}</div>
-                        <div class="wrap-price text-dark"><del class="text-danger">₹ {{item.original_price}}</del><span class="product-price ms-2">₹ {{item.selling_price}}</span></div>
+                        <div class="wrap-price text-dark"><del class="text-danger">₹ {{item.original_price | stringformat:'d'}}</del><span class="product-price ms-2">₹ {{item.selling_price | stringformat:'d'}}</span></div>
+                        <button style="background-color: #ff0000;width:100%;" class="text-white border-0 py-1 cartbtn px-3">Add To Cart</button>
                     </a>
                 </div>
             </div>

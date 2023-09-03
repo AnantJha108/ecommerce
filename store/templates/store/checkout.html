@@ -17,36 +17,36 @@
                         <h3 class="box-title">Billing Address</h3>
                             <p class="row-in-form mx-1">
                                 <label for="fname">first name<span>*</span></label>
-                                <input id="fname" type="text" required name="fname"  placeholder="Your name">
+                                <input id="fname" type="text" value="{{ request.user.first_name }}" required name="fname"  placeholder="Your name">
                             </p>
                             <p class="row-in-form mx-1">
                                 <label for="lname">last name<span>*</span></label>
-                                <input id="lname" type="text" required name="lname"  placeholder="Your last name">
+                                <input id="lname" type="text" value="{{ request.user.last_name }}" required name="lname"  placeholder="Your last name">
                             </p>
                             <p class="row-in-form mx-1">
                                 <label for="email">Email Addreess:</label>
-                                <input id="email" type="email" required name="email"  placeholder="Type your email">
+                                <input id="email" type="email" value="{{ request.user.email }}" required name="email"  placeholder="Type your email">
                             </p>
                             <p class="row-in-form mx-1">
                                 <label for="phone">Phone number<span>*</span></label>
-                                <input id="phone" type="text" required name="phone_no"  placeholder="10 digits format">
+                                <input id="phone" type="text" value="{{ userProfile.phone_no }}" required name="phone_no"  placeholder="10 digits format">
                             </p>
                             <p class="row-in-form mx-1">
                                 <label for="add">Address:</label>
-                                <input id="add" type="text" required name="address"  placeholder="Street at apartment number">
+                                <input id="add" type="text" value="{{ userProfile.address }}" required name="address"  placeholder="Street at apartment number">
                             </p>
                             <p class="row-in-form mx-1">
                                 <label for="country">Country<span>*</span></label>
-                                <input id="country" type="text" required name="country"  placeholder="India">
+                                <input id="country" type="text" value="{{ userProfile.country }}" required name="country"  placeholder="India">
                             </p>
                             <p class="row-in-form mx-1">
                                 <label for="zip-code">Pincode:</label>
-                                <input id="zip-code" type="number" required name="pincode"  placeholder="Your pin code">
+                                <input id="zip-code" type="number" value="{{ userProfile.pincode }}" required name="pincode"  placeholder="Your pin code">
                             </p>
                             <p class="row-in-form mx-1">
                                 <label for="city">Town / City<span>*</span></label>
-                                <input id="city" type="text" required name="city"  placeholder="City name">
-                                <input type="hidden" required name="payment_mode" value="1"  placeholder="payment_mode">
+                                <input id="city" type="text" value="{{ userProfile.city }}" required name="city"  placeholder="City name">
+                                <input type="hidden" name="payment_mode" value="COD"  placeholder="payment_mode">
                             </p>
                     </div>
                 </div>
@@ -91,7 +91,8 @@
                         </p>
                         {% endif %}
                         <div class="checkout-info">
-                            <button class="btn btn-checkout" style="background-color: #ff0000" href="{% url 'checkout' %}">Place Order</button>
+                            <button class="btn btn-checkout" style="background-color: #ff0000" href="{% url 'checkout' %}">COD | Place Order</button>
+                            <button class="btn btn-checkout mt-0 payWithRazopay" style="background-color: #0073ff">Pay With Razopay</button>
                             <a class="link-to-shop" href="{% url 'collections' %}">Continue Shopping<i class="fa fa-arrow-circle-right"
                                     aria-hidden="true"></i></a>
                         </div>
@@ -104,3 +105,7 @@
     </form>
 </div>
 {% endblock content %}
+
+{% block scripts %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+{% endblock scripts %}

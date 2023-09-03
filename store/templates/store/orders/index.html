@@ -1,0 +1,64 @@
+{% extends "store/layouts/main.html" %}
+
+{% block title %}
+Order Page
+{% endblock title %}
+
+{% block content %}
+{% include "store/inc/navbar.html" %}
+<main id="main" class="main-site">
+    <div class="container mt-5">
+        {% if orders %}
+        <div class="d-flex mb-3">
+            <h5 class="ms-1 h4"><a href="{% url 'myorders'  %}" class="text-dark">My Orders </a></h5>
+        </div>
+        <div class="main-content-area row">
+            <div class="wrap-iten-in-cart col">
+                <ul class="products-cart">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Order date</th>
+                                <th>Tracking no</th>
+                                <th>Total Price</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in orders %}
+                            <tr>
+                                <td>{{item.created_at}}</td>
+                                <td>{{item.tracking_no}}</td>
+                                <td>₹ {{item.total_price | stringformat:'d'}}</td>
+                                <td>{{item.status}}</td>
+                                <td>
+                                    <a href="{% url 'orderview' item.tracking_no %}" class="btn btn-info btn-sm">view</a>
+                                </td>
+                            </tr>                     
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </ul>
+            </div>
+        </div>
+        <!--end main content area-->
+        {% else %}
+        <div class="container">
+            <div class="row">
+                <div class="col-10 mx-auto">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4 class="p-3">You have no Previous order </h4>
+                            <a href="{% url 'collections' %}" class="btn btn-info btn-sm">Cotinue to Shopping</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <!--end container-->
+
+</main>
+{% endblock content %}
