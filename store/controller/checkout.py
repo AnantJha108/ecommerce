@@ -1,4 +1,4 @@
-from store.models import Cart,Order,OrderItem,Product,Profile
+from store.models import Cart,Order,OrderItem,Product,Profile,Coupon
 from django.shortcuts import redirect,render
 from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse,HttpResponse

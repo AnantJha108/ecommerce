@@ -12,6 +12,9 @@ urlpatterns = [
     path('accounts/signup', authview.register,name='register'),
     path('accounts/login', authview.loginPage ,name='login'),
     path('accounts/logout', authview.logoutPage ,name='logout'),
+
+    path('product-list',views.productlistAjax),
+    path('searchProduct',views.searchProduct,name='searchProduct'),
     
     path('add-to-cart',cart.addToCart,name='addToCart'),
     path('update-cart',cart.updateCart,name='updateCart'),
